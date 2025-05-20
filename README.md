@@ -22,18 +22,24 @@ A **lightweight NLP model** using **MediaSum** data to assess summary quality in
 
 ---
 
+
 ## 🔀 Multimodal Fusion (What Didn't Work)
 
-We also attempted to combine the above signals into a **multimodal fusion model**. Unfortunately, this approach underperformed:
+We also attempted to combine the above signals into a **multimodal fusion model**. Unfortunately, this approach significantly underperformed:
 
 ❌ **Multimodal Accuracy: 18.5%**
 
-### 📉 Why It Failed:
-- 🔄 **Asynchronous inputs** across modalities  
-- ⏱️ **Lack of temporal alignment or modeling**  
-- 📉 **Noisy fusion techniques** without end-to-end optimization
+### 📉 Why It Failed
 
----
+- 🔄 **Asynchronous inputs** across modalities (e.g., audio vs. visual timing)
+- ⏱️ **Lack of temporal modeling**, which is essential for interview dynamics
+- 📉 **Noisy and unoptimized fusion strategy** (not end-to-end trainable)
+- 🧩 **Multimodal fusion complexity** — merging image features (AffectNet) and audio features (RAVDESS) is non-trivial, especially when one modality dominates or data distributions are mismatched
+- 🧊 **Frozen ResNet18 backbone** — convolutional layers were not fine-tuned, limiting adaptability to our dataset
+- ⚖️ **Data imbalance** — some emotion classes had significantly fewer samples, leading to biased learning
+- 🧪 **Small batch size (8)** — may have caused unstable gradients or slowed convergence
+- 🔊 **Low-quality audio features** — MFCC-based embeddings from RAVDESS might lack discriminative power or be too noisy
+
 
 ## 💡 Key Takeaways
 
